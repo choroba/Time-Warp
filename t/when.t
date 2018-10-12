@@ -23,13 +23,13 @@ scale(2);
 is &scale, 2;
 my $now = &time;
 sleep 2;
-is(&time - $now, 4);
+cmp_ok(&time - $now, '>=', 4);
 
 to(CORE::time);
-is(&time - CORE::time, 0);
+cmp_ok(&time - CORE::time, '>=', 0);
 
 scale(scale() * 2);
-is(&time - CORE::time, 0);
+cmp_ok(&time - CORE::time, '<=', 0);
 
 Time::Warp::reset(); to(&time + 5);
-is(&time - CORE::time, 5);
+cmp_ok(&time - CORE::time, '>=', 5);
